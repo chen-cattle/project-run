@@ -13,7 +13,7 @@
 ![Stop](images/useOneStop.gif)
 
 * 打开指令列表  
-![Command](images/useCommand.gif)
+![Menus](images/useOpenMenu.gif)
 
 
 ## 快捷键
@@ -27,7 +27,7 @@
 
 ## 提示
 
-快速运行提供了 ['dev', 'start', 'watch'] 三种运行指令，优先级按顺序降低，如果默认的运行指令无法满足需求，可在 configuration 中配置 project-run.script，配置后将优先使用 project-run.script 中的配置
+快速运行提供了 ['dev', 'start', 'watch'] 三种运行指令，优先级按次序降低，如果默认的运行指令无法满足需求，可在 configuration 中配置 project-run.script，配置后将优先使用 project-run.script 中的配置
 
 ```json
 "project-run.script": ["develop"]
