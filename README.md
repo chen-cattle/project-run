@@ -1,71 +1,47 @@
-# project-run README
+# Project Run
 
-After writing up a brief description, we recommend including the following sections.
+简化 vscode 启动前端项目流程，一键启动前端项目
 
-## Features
+## 特性
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+自动扫描工作区中的 package.json 文件，通过按钮或快捷键快速启动各工作区中的的 Javascript 项目
 
-For example if there is an image subfolder under your extension project workspace:
+* 快速运行  
+[Run](images/useOneRun.gif)
 
-\!\[feature X\]\(images/feature-x.png\)
+* 快速停止  
+[Stop](images/useOneStop.gif)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+* 打开指令列表  
+[Command](images/useCommand.gif)
 
-## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## 快捷键
 
-## Extension Settings
+| 快捷键 | 功能 |
+| --- | --- |
+| `Ctrl+Alt+P` | 启动当前工作区内的项目 |
+| `Ctrl+Alt+S` | 停止当前工作区内的项目 |
+| `Ctrl+Alt+M` | 打开可运行的指令列表 |
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-For example:
+## 提示
 
-This extension contributes the following settings:
+快速运行提供了 ['dev', 'start', 'watch'] 三种运行指令，优先级按顺序降低，如果默认的运行指令无法满足需求，可在 configuration 中配置 project-run.script，配置后将优先使用 project-run.script 中的配置
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```json
+project-run.script: []
+```
 
-## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Change Log
 
-## Release Notes
+See Change Log [here]().
 
-Users appreciate release notes as you update your extension.
+## Issues
 
-### 1.0.0
+Submit the [issues]() if you find any bug or have any suggestion.
 
-Initial release of ...
+## Contribution
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Fork the [repo]() and submit pull requests.

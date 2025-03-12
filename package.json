@@ -35,25 +35,28 @@
             "yarn",
             "pnpm"
           ],
-          "description": "运行所要使用的包管理器",
+          "description": "请运行所要使用的包管理器",
           "scope": "resource"
         },
         "project-run.single": {
           "type": "boolean",
           "default": true,
-          "description": "运行命令时只有一个终端",
+          "description": "同样的指令运行时保持只有一个终端",
           "scope": "resource"
         },
         "project-run.exit": {
           "type": "boolean",
           "default": false,
-          "description": "点击stop后是否销毁终端",
+          "description": "点击stop后是否主动销毁终端",
           "scope": "resource"
         },
         "project-run.script": {
-          "type": "string",
-          "default": {},
-          "description": "自定义脚本",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "自定义指令，将优先于内置的指令, 内置指令: ['dev', 'start', 'watch']",
           "scope": "resource"
         }
       }
