@@ -15,7 +15,6 @@
 * 打开指令列表  
 ![Menus](images/useOpenMenu.gif)
 
-
 ## 快捷键
 
 | 快捷键 | 功能 |
