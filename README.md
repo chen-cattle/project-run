@@ -1,19 +1,19 @@
 # Project Run
 
-简化 vscode 启动前端项目流程，一键启动前端项目
+简化 vscode 启动前端项目流程，快速启动前端项目
 
 ## 特性
 
 自动扫描工作区中的 package.json 文件，通过按钮或快捷键快速启动各工作区中的的 Javascript 项目
 
 * 快速运行  
-[Run](images/useOneRun.gif)
+![Run](images/useOneRun.gif)
 
 * 快速停止  
-[Stop](images/useOneStop.gif)
+![Stop](images/useOneStop.gif)
 
 * 打开指令列表  
-[Command](images/useCommand.gif)
+![Command](images/useCommand.gif)
 
 
 ## 快捷键
@@ -30,18 +30,18 @@
 快速运行提供了 ['dev', 'start', 'watch'] 三种运行指令，优先级按顺序降低，如果默认的运行指令无法满足需求，可在 configuration 中配置 project-run.script，配置后将优先使用 project-run.script 中的配置
 
 ```json
-project-run.script: []
+"project-run.script": ["develop"]
 ```
 
 
 ## Change Log
 
-See Change Log [here]().
+See Change Log [here](https://github.com/chen-cattle/project-run/blob/main/CHANGELOG.md).
 
 ## Issues
 
-Submit the [issues]() if you find any bug or have any suggestion.
+Submit the [issues](https://github.com/chen-cattle/project-run/issues) if you find any bug or have any suggestion.
 
 ## Contribution
 
-Fork the [repo]() and submit pull requests.
+Fork the [repo](https://github.com/chen-cattle/project-run) and submit pull requests.
