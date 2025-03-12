@@ -3,6 +3,7 @@
   "displayName": "project-run",
   "description": "web project one key run",
   "version": "0.9.1",
+  "icon": "./icon.png",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
