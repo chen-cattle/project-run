@@ -1,6 +1,6 @@
 # project-run README
 
-This is the README for your extension "project-run". After writing up a brief description, we recommend including the following sections.
+After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

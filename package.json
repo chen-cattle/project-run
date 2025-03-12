@@ -2,7 +2,16 @@
   "name": "project-run",
   "displayName": "project-run",
   "description": "web project one key run",
-  "version": "0.0.1",
+  "version": "0.9.1",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "package": "vsce package -o ./dist/project-run.vsix"
+  },
   "engines": {
     "vscode": "^1.98.0"
   },
@@ -20,7 +29,11 @@
         "project-run.pack": {
           "type": "string",
           "default": "npm",
-          "enum": ["npm", "yarn", "pnpm"],
+          "enum": [
+            "npm",
+            "yarn",
+            "pnpm"
+          ],
           "description": "运行所要使用的包管理器",
           "scope": "resource"
         },
@@ -42,7 +55,6 @@
           "description": "自定义脚本",
           "scope": "resource"
         }
-        
       }
     },
     "commands": [
@@ -82,7 +94,6 @@
     ],
     "menus": {
       "editor/title": [
-        
         {
           "command": "project-run.run",
           "group": "navigation@1",
@@ -100,23 +111,16 @@
       ]
     }
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
-  },
   "devDependencies": {
-    "@types/vscode": "^1.98.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.98.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
-    "eslint": "^9.21.0",
-    "typescript": "^5.7.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.2",
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3"
   }
 }
