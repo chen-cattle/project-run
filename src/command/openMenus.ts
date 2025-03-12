@@ -3,6 +3,7 @@ import Cache, { Project } from '../cache';
 import { PACK_COMMAND } from '../const';
 import customQuickPick from '../utils/customQuickPick';
 import { getCommand } from '../utils';
+import path from 'path';
 export const openMenus = async (memory: Cache) => {
   console.log(memory.cache[0].executes, 'executes');
 
@@ -25,7 +26,11 @@ export const openMenus = async (memory: Cache) => {
 
   const selected = await customQuickPick(list, (val, items) => {
     return items.filter(item => {
-          if (item.kind || item.label.toLowerCase().includes(val.toLowerCase()) || (item.description && item.description.toLowerCase().includes(val.toLowerCase()))) {
+          if (
+            item.kind ||
+            item.label.toLowerCase().includes(val.toLowerCase()) ||
+            (item.description && item.description.toLowerCase().includes(val.toLowerCase()))
+          ) {
             return true;
           }
           return false;
@@ -46,7 +51,7 @@ export const openMenus = async (memory: Cache) => {
     console.log(selected.extraData.origin, 'selected');
     memory.setCur(selected.extraData.origin);
     // const curProject = memory.cache.find(item => item.executes.find(exec => exec.key === selected.label));
-    vscode.commands.executeCommand('project-run.execText', getCommand(selected.extraData.config, selected.label), selected.group);
+    vscode.commands.executeCommand('project-run.execText', getCommand(selected.extraData.config, selected.label), selected.group, path.dirname(selected.extraData.path));
   }
 
   // const quickPick = vscode.window.createQuickPick();

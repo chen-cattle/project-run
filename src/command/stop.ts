@@ -24,6 +24,7 @@ export function stop(memory: Cache) {
     console.log('stop terminal', terminal);
     memory.setStatus(false);
     terminal?.sendText(stopShell());
+    terminal?.show();
 
   }
   // memory.terminalList[0].sendText(stopShell());

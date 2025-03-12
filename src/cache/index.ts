@@ -17,7 +17,6 @@ export type Project = {
   executes: {[key: string]: string}[];
   terminals: CustomTerminal[];
 }
-
 export default class Cache {
   // 项目信息
   private projectList: Project[] = [];
@@ -82,14 +81,25 @@ export default class Cache {
       return;
     }
 
+    /* 
+      Runtime可以尝试Map结果，key value 可以把O(n)操作变成O(1)
+    
+    */
+
     const index = this.projectList[projectIndex].terminals.findIndex(innerTerminal => innerTerminal === terminal);
+    
     if(index === -1) {
       return;
     }
 
-    const terminals = this.projectList[projectIndex].terminals.splice(index, 1);
+    
 
-    terminals.forEach(terminal => terminal.dispose());
+    const removeTerminals = this.projectList[projectIndex].terminals.splice(index, 1);
+
+    console.log('remove terminals', removeTerminals, this.projectList[projectIndex].terminals);
+    
+
+    removeTerminals.forEach(terminal => terminal.dispose());
     
   }
 

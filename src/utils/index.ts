@@ -40,9 +40,9 @@ export function stopShell() {
 export function getConfig(work: vscode.WorkspaceFolder): ProjectConfig {
     const config = vscode.workspace.getConfiguration(PROJECT_NAME, work);
     return {
-      pack: config.get<ProjectConfig['pack']>(CONFIG_PACK) || DEFAULT_OPTION.pack,
-      single : config.get<boolean>(CONFIG_SINGLE) || DEFAULT_OPTION.single,
-      exit:config.get<boolean>(CONFIG_EXIT) || DEFAULT_OPTION.exit
+      pack: computedVal(config.get<ProjectConfig['pack']>(CONFIG_PACK), DEFAULT_OPTION.pack),
+      single: computedVal(config.get<boolean>(CONFIG_SINGLE), DEFAULT_OPTION.single),
+      exit: computedVal(config.get<boolean>(CONFIG_EXIT), DEFAULT_OPTION.exit)
     };
 }
 
@@ -86,5 +86,12 @@ export function getProject(workspace: vscode.WorkspaceFolder) {
         })
       };
     }
+}
 
+export function computedVal<T>(val: T, defaultVal: NonNullable<T>): NonNullable<T>{
+  if(typeof val === undefined || val === null) {
+    return defaultVal;
+  }
+
+  return val as NonNullable<T>;
 }

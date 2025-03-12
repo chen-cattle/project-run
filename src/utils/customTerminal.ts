@@ -1,14 +1,7 @@
+import { randomUUID } from 'node:crypto';
 import EventEmitter from 'node:events';
 import * as vscode from 'vscode';
 
-export type CustomTerminalOption = {
-  name: string;
-  path?: string;
-  args?: string;
-  cwd?: string;
-  env?: { [key: string]: string | null | undefined };
-  strictEnv?: boolean;
-}
 
 type ChangeTerminal = {
   type: 'open',
@@ -43,12 +36,14 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
   exitStatus: vscode.TerminalExitStatus | undefined;
   state!: vscode.TerminalState;
   shellIntegration: vscode.TerminalShellIntegration | undefined;
-  private terminal!: vscode.Terminal;
+
   command?: string;
   running: boolean = false;
+  terminalId!: string;
   private disposes: vscode.Disposable[] = [];
+  private terminal!: vscode.Terminal;
 
-  constructor(private option: CustomTerminalOption ) {
+  constructor(private option: vscode.TerminalOptions ) {
     super();
     this.initial();
     this.lifecycle();
@@ -56,7 +51,8 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
 
   private initial() {
     const terminal = vscode.window.createTerminal({
-      ...this.option
+     ...this.option
+      
     });
     this.name = terminal.name;
     this.processId = terminal.processId;
@@ -65,11 +61,12 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
     this.state = terminal.state;
     this.shellIntegration = terminal.shellIntegration;
     this.terminal = terminal;
+    this.terminalId = randomUUID();
 
   }
   private lifecycle() {
     const openTerminal = vscode.window.onDidOpenTerminal((e) => {
-      if (e.name === this.option.name) {
+      if (e === this.terminal) {
         this.emit('open', e);
         this.emit('change', { type: 'open', event: e });
       }
@@ -78,7 +75,8 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
     this.disposes.push(openTerminal);
 
     const changeTerminalShellIntegration = vscode.window.onDidChangeTerminalShellIntegration((e) => {
-      if (e.terminal.name === this.option.name) {
+      // e.shellIntegration.cwd
+      if (e.terminal === this.terminal) {
         this.emit('mount', e);
         this.emit('change', { type: 'mount', event: e });
       }
@@ -88,7 +86,7 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
 
 
     const startTerminalShellExecution = vscode.window.onDidStartTerminalShellExecution((e) => {
-      if (e.terminal.name === this.option.name) {
+      if (e.terminal === this.terminal) {
         this.emit('start', { text: this.command!, origin: e});
         this.emit('change', { type: 'start', event: { text: this.command!, origin: e} });
         this.running = true;
@@ -99,7 +97,7 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
   
     /* TODO name可能相同 */
     const endTerminalShellExecution = vscode.window.onDidEndTerminalShellExecution((e) => {
-      if (e.terminal.name === this.option.name) {
+      if (e.terminal === this.terminal) {
         this.emit('end', { text: this.command!, origin: e});
         this.emit('change', { type: 'end', event: { text: this.command!, origin: e} });
         this.command = '';
@@ -111,7 +109,7 @@ export class CustomTerminal extends EventEmitter<CustomTerminalEvent> implements
 
 
     const didCloseTerminal = vscode.window.onDidCloseTerminal((e) => {
-      if (e.name === this.option.name) {
+      if (e === this.terminal) {
         this.emit('close', e);
         this.emit('change', { type: 'close', event: e });
       }

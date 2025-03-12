@@ -37,32 +37,13 @@ export default function dynamic(memory: Cache) {
     } else  {
       vscode.commands.executeCommand('setContext', 'project-run:running', true);
     }
-    
-    // if(project) {
-    //      const terminal = project.terminals.find(terminal => {
-    //     return terminal.command === project.devCommand;
-    //   });
-    //   console.log('observe', terminal, terminal?.running);
-
-    //   /* 
-
-    //     项目启动时，图标不会发生变化（原因，cur改变时terminal中命令的运行状态不一定是true）（terminal的running改变时更改脚本按钮）
-    //     停止按钮失效
-    //     终端退出时，停止按钮没有恢复
-    //   */
-      
-    //   if(terminal?.running) {
-    //     vscode.commands.executeCommand('setContext', 'project-run:running', true);
-    //   } else {
-    //     vscode.commands.executeCommand('setContext', 'project-run:running', false);
-    //   }
-    // }
-
 
   });
 
 
-  
+  /* 
+    运行不是第一个工作区时，不能运行
+  */
 
   // 监听命令是否允许
   observe(memory, 'cur', undefined, (project: Project | undefined) => {
@@ -88,17 +69,17 @@ export default function dynamic(memory: Cache) {
         vscode.commands.executeCommand('setContext', 'project-run:running', false);
       }
     }
-    if(memory.cur) {
+    // if(memory.cur) {
 
-      const terminal = memory.cur.terminals.find(terminal => {
-        return terminal.command === memory.cur!.devCommand;
-      });
+    //   const terminal = memory.cur.terminals.find(terminal => {
+    //     return terminal.command === memory.cur!.devCommand;
+    //   });
 
-      if(terminal?.running) {
-        vscode.commands.executeCommand('setContext', 'project-run:running', true);
-      } else {
-        vscode.commands.executeCommand('setContext', 'project-run:running', false);
-      }
-    }
+    //   if(terminal?.running) {
+    //     vscode.commands.executeCommand('setContext', 'project-run:running', true);
+    //   } else {
+    //     vscode.commands.executeCommand('setContext', 'project-run:running', false);
+    //   }
+    // }
   });
 }

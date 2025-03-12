@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import Cache from '../cache';
 import { CustomTerminal } from '../utils/customTerminal';
 
-export function execText(text: string, memory: Cache, name: string) {
+export function execText(text: string, memory: Cache, name: string, path?: string) {
   vscode.window.showInformationMessage(text);
   /* 
     1. 终端所属的 workspace
@@ -10,14 +10,13 @@ export function execText(text: string, memory: Cache, name: string) {
     3. 终端相关的配置
   */
 
-  console.log('execText', text, name, memory);
-  
-  const curProject = memory.cache.find(project => project.name === name);
+ 
+ const curProject = memory.cache.find(project => project.name === name);
+ console.log('execText', text, name, memory, curProject);
   if(!curProject) {
     return;
   }
 /* 如何 terminal没有被关闭，则优先使用打开的terminal */
-
   const single = curProject.config.single;
   const curTerminal = curProject.terminals.find(terminal => terminal.command === text);
   if(single && curTerminal) {
@@ -25,6 +24,8 @@ export function execText(text: string, memory: Cache, name: string) {
     curTerminal.show();
     return;
   }
+
+  /* TODO 直接点击删除terminal时，会退出所有的terminal */
 
   const idleTerminal = curProject.terminals.find(terminal => !terminal.running);
 
@@ -41,31 +42,34 @@ export function execText(text: string, memory: Cache, name: string) {
     return;
   }
 
-
+  console.log('newTerminal', text);
+  
  const terminal = new CustomTerminal({
-    name: 'exec'
+    name: 'exec',
+    shellPath: path,
   });
 
   terminal.sendText(text);
   terminal.show();
   terminal.addListener('start', (e) => {
     console.log('start', e, text, curProject);
-    if (e.text === curProject.devCommand) {
+    if (e.text === curProject.devCommand && curProject.config.single) {
       memory.setStatus(true);
     }
   });
   terminal.addListener('end', (e) => {
-    
-    if (e.text === curProject.devCommand) {
+    if (e.text === curProject.devCommand && curProject.config.single) {
       memory.setStatus(false);
     }
-    console.log('end', e);
+    // console.log('end', e);
   });
 
   terminal.addListener('close', (e) => {
-    if (text === curProject.devCommand) {
+    if (text === curProject.devCommand && curProject.config.single) {
       memory.setStatus(false);
     }
+    // console.log('close terminal', e, terminal.terminalId);
+    
     memory.removeTerminal(name, terminal);
   });
   memory.setTerminals(name, terminal);

@@ -25,7 +25,10 @@ export default function initial(memory: Cache, context: vscode.ExtensionContext)
   const didChangeConfig = vscode.workspace.onDidChangeConfiguration(e => {
     
     memory.cache.forEach((project) => {
+
       if(e.affectsConfiguration('project-run', project.origin)) {
+        console.log('affectsConfiguration', project.origin);
+        
         memory.setCache({
           ...project,
           config: getConfig(project.origin)
@@ -68,12 +71,11 @@ export default function initial(memory: Cache, context: vscode.ExtensionContext)
 
   context.subscriptions.push(activeEditor);
 
-  const closeTerminal = vscode.window.onDidCloseTerminal((e) => {
-    console.log('closeTerminal', e, memory);
-    
-  });
+  // const closeTerminal = vscode.window.onDidCloseTerminal((e) => {
+  //   console.log('closeTerminal', e, memory);
+  // });
 
-  context.subscriptions.push(closeTerminal);
+  // context.subscriptions.push(closeTerminal);
 
   // 监听 package.json 文件变化
   projects.forEach(project => {
