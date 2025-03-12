@@ -4,6 +4,7 @@ import { execText } from './execText';
 import { runFunc } from './run';
 import { stop } from './stop';
 import Cache from '../cache';
+import { CommandType } from '../utils';
 
 
 
@@ -15,7 +16,7 @@ import Cache from '../cache';
 export default function register(context: vscode.ExtensionContext, memory: Cache) {
 
   // 创建终端并运行命令
-  const execTextCommand = vscode.commands.registerCommand('project-run.execText', (text, name) => {
+  const execTextCommand = vscode.commands.registerCommand('project-run.execText', (text: CommandType, name) => {
     execText(text, memory, name);
   });
 

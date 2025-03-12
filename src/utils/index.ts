@@ -57,10 +57,19 @@ export function getActiveWorkspaceFolder() {
 }
 
 
+export type CommandType = {prefix: string, suffix: string}
+
 // 获取要运行的指令
-export function getCommand(config: ProjectConfig, text: string) {
-  
-  return `${PACK_COMMAND[config.pack]} ${text}`;
+export function getCommand(config: ProjectConfig, text: string): CommandType {
+  return {
+    prefix: PACK_COMMAND[config.pack],
+    suffix: text
+  };
+}
+
+
+export function joinCommand(command: CommandType): string {
+  return `${command.prefix} ${command.suffix}`; 
 }
 
 export function getProject(workspace: vscode.WorkspaceFolder) {
@@ -75,7 +84,7 @@ export function getProject(workspace: vscode.WorkspaceFolder) {
         name: workspace.name,
         path: packagePath,
         config: config,
-        devCommand: getCommand(config, curDev),
+        devCommand: joinCommand(getCommand(config, curDev)),
         origin: workspace,
         terminals: [],
         executes: scriptList.map(([key, value]) => {

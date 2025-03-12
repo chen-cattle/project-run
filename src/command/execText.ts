@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
 import Cache from '../cache';
 import { CustomTerminal } from '../utils/customTerminal';
+import { CommandType, joinCommand } from '../utils';
 
-export function execText(text: string, memory: Cache, name: string, path?: string) {
-  vscode.window.showInformationMessage(text);
+export function execText(command: CommandType, memory: Cache, name: string, path?: string) {
+  vscode.window.showInformationMessage(joinCommand(command));
   /* 
     1. 终端所属的 workspace
     2. 终端所运行的命令
@@ -12,13 +13,13 @@ export function execText(text: string, memory: Cache, name: string, path?: strin
 
  
  const curProject = memory.cache.find(project => project.name === name);
- console.log('execText', text, name, memory, curProject);
+ console.log('execText', joinCommand(command), name, memory, curProject);
   if(!curProject) {
     return;
   }
 /* 如何 terminal没有被关闭，则优先使用打开的terminal */
   const single = curProject.config.single;
-  const curTerminal = curProject.terminals.find(terminal => terminal.command === text);
+  const curTerminal = curProject.terminals.find(terminal => terminal.command === joinCommand(command));
   if(single && curTerminal) {
     vscode.window.showWarningMessage('已有同样的指令,如需不限制,请修改 single 配置');
     curTerminal.show();
@@ -35,24 +36,24 @@ export function execText(text: string, memory: Cache, name: string, path?: strin
   空闲的terminal如果之前运行过dev，则会导致运行按钮变化
 */
   if(idleTerminal){
-    console.log('idleTerminal', text);
+    console.log('idleTerminal', joinCommand(command));
     
-    idleTerminal.sendText(text);
+    idleTerminal.sendText(joinCommand(command));
     idleTerminal.show();
     return;
   }
 
-  console.log('newTerminal', text);
+  console.log('newTerminal', joinCommand(command));
   
  const terminal = new CustomTerminal({
-    name: 'exec',
+    name: command.suffix,
     shellPath: path,
   });
 
-  terminal.sendText(text);
+  terminal.sendText(joinCommand(command));
   terminal.show();
   terminal.addListener('start', (e) => {
-    console.log('start', e, text, curProject);
+    console.log('start', e, joinCommand(command), curProject);
     if (e.text === curProject.devCommand && curProject.config.single) {
       memory.setStatus(true);
     }
@@ -65,7 +66,7 @@ export function execText(text: string, memory: Cache, name: string, path?: strin
   });
 
   terminal.addListener('close', (e) => {
-    if (text === curProject.devCommand && curProject.config.single) {
+    if (joinCommand(command) === curProject.devCommand && curProject.config.single) {
       memory.setStatus(false);
     }
     // console.log('close terminal', e, terminal.terminalId);
