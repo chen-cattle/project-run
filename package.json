@@ -1,9 +1,42 @@
 {
   "name": "project-run",
-  "displayName": "project-run",
-  "description": "web project one key run",
+  "displayName": "Project Run",
+  "description": "Run javascript project with one click.",
+  "keywords": [
+    "run",
+    "project",
+    "javascript",
+    "typescript",
+    "ts",
+    "js",
+    "node",
+    "jsx",
+    "tsx",
+    "css",
+    "HTML",
+    "json",
+    "vue",
+    "react",
+    "angular",
+    "electron",
+    "webpack",
+    "vite",
+    "rollup",
+    "esbuild",
+    "deno",
+    "bun"
+  ],
+  "publisher": "chen-cattle",
   "version": "0.9.1",
   "icon": "./icon.png",
+  "homepage": "https://github.com/chen-cattle/project-run",
+  "repository": {
+    "type":"git",
+    "url": "https://github.com/chen-cattle/project-run"
+  },
+  "bugs": {
+    "url": "https://github.com/chen-cattle/project-run/issues"
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
