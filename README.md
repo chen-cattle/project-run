@@ -1,6 +1,6 @@
 # Project Run
 
-简化 vscode 启动前端项目流程，快速启动前端项目
+简化 vscode 启动 javascript 项目流程，快速启动 javascript 项目
 
 ## 特性
 
