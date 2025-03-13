@@ -2,7 +2,7 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 import { INSTRUCTS, ProjectJSONName } from './const';
 import { existsSync } from 'fs';
-import { getCommand, getConfig, getProject, readJSON } from './utils';
+import { getCommand, getConfig, getProject, localize, readJSON } from './utils';
 import Cache, { Project } from './cache';
 
 
@@ -18,9 +18,8 @@ export default function initial(memory: Cache, context: vscode.ExtensionContext)
     return acc;
   }, [] as (Project | undefined)[]).filter(Boolean) as Project[];
 
-  console.log('projects', projects);
+  console.log(localize('description'),'local');
   
-
   // 监听配置变化
   const didChangeConfig = vscode.workspace.onDidChangeConfiguration(e => {
     

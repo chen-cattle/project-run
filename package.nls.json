@@ -1,0 +1,11 @@
+{
+  "displayName": "Project Run",
+  "description": "Run javascript/typescript project with one click.",
+  "pack.description": "Please run the package manager you want to use",
+  "single.description": "The same command is executed with only one terminal",
+  "exit.description": "Whether to actively destroy the terminal when clicking stop",
+  "script.description": "The same command is executed with only one terminal",
+  "sameMessage": "The same command already exists. If you want no limit, please modify the single configuration",
+  "workProject": "There are currently no open projects in the workspace",
+  "script.not": "No corresponding command found"
+}

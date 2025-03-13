@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import Cache, { Project } from '../cache';
-import { getActiveWorkspaceFolder, getCommand, getInstructs } from '../utils';
+import { getActiveWorkspaceFolder, getCommand, getInstructs, localize } from '../utils';
+import { PROJECT_NAME } from '../const';
 
 export function runFunc(memory: Cache) {
 
@@ -17,7 +18,7 @@ export function runFunc(memory: Cache) {
   }
   
   if(!curProject) {
-    vscode.window.showErrorMessage('工作区暂无打开的项目');
+    vscode.window.showErrorMessage(localize('workProject'));
     return;
   }
 
@@ -27,7 +28,7 @@ export function runFunc(memory: Cache) {
   });
   
   if(cur === -1) {
-    vscode.window.showErrorMessage('没有找到对应的指令');
+    vscode.window.showErrorMessage(localize('script.not'));
     return;
   }
 

@@ -1,0 +1,11 @@
+{
+  "displayName": "Project Run",
+  "description": "一键运行 javascript/typescript 项目",
+  "pack.description": "请运行所要使用的包管理器",
+  "single.description": "同样的指令运行时保持只有一个终端",
+  "exit.description": "点击stop后是否主动销毁终端",
+  "script.description": "自定义指令，将优先于内置的指令, 内置指令: ['dev', 'start', 'watch']",
+  "sameMessage": "已有同样的指令,如需不限制,请修改 single 配置",
+  "workProject": "工作区暂无打开的项目",
+  "script.not": "没有找到对应的指令"
+}

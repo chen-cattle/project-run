@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import Cache from '../cache';
 import { CustomTerminal } from '../utils/customTerminal';
-import { CommandType, joinCommand } from '../utils';
+import { CommandType, joinCommand, localize } from '../utils';
+import { PROJECT_NAME } from '../const';
 
 export function execText(command: CommandType, memory: Cache, name: string, path?: string) {
   vscode.window.showInformationMessage(joinCommand(command));
@@ -21,7 +22,7 @@ export function execText(command: CommandType, memory: Cache, name: string, path
   const single = curProject.config.single;
   const curTerminal = curProject.terminals.find(terminal => terminal.command === joinCommand(command));
   if(single && curTerminal) {
-    vscode.window.showWarningMessage('已有同样的指令,如需不限制,请修改 single 配置');
+    vscode.window.showWarningMessage(localize('sameMessage'));
     curTerminal.show();
     return;
   }

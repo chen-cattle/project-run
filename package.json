@@ -1,7 +1,7 @@
 {
   "name": "project-run",
-  "displayName": "Project Run",
-  "description": "Run javascript project with one click.",
+  "displayName": "%displayName%",
+  "description": "%description%",
   "keywords": [
     "run",
     "project",
@@ -31,7 +31,7 @@
   "icon": "./icon.png",
   "homepage": "https://github.com/chen-cattle/project-run",
   "repository": {
-    "type":"git",
+    "type": "git",
     "url": "https://github.com/chen-cattle/project-run"
   },
   "bugs": {
@@ -57,6 +57,30 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "localizations": [
+      {
+        "languageId": "en",
+        "languageName": "English",
+        "localizedLanguageName": "英文",
+        "translations": [
+          {
+            "id": "vscode",
+            "path": "./package.nls.json"
+          }
+        ]
+      },
+      {
+        "languageId": "zh-cn",
+        "languageName": "Chinese",
+        "localizedLanguageName": "中文",
+        "translations": [
+          {
+            "id": "vscode",
+            "path": "./package.nls.zh-cn.json"
+          }
+        ]
+      }
+    ],
     "configuration": {
       "title": "project-run",
       "properties": {
@@ -68,19 +92,19 @@
             "yarn",
             "pnpm"
           ],
-          "description": "请运行所要使用的包管理器",
+          "description": "%pack.description%",
           "scope": "resource"
         },
         "project-run.single": {
           "type": "boolean",
           "default": true,
-          "description": "同样的指令运行时保持只有一个终端",
+          "description": "%single.description%",
           "scope": "resource"
         },
         "project-run.exit": {
           "type": "boolean",
           "default": false,
-          "description": "点击stop后是否主动销毁终端",
+          "description": "%exit.description%",
           "scope": "resource"
         },
         "project-run.script": {
@@ -89,7 +113,7 @@
             "type": "string"
           },
           "default": [],
-          "description": "自定义指令，将优先于内置的指令, 内置指令: ['dev', 'start', 'watch']",
+          "description": "%script.description%",
           "scope": "resource"
         }
       }

@@ -4,6 +4,8 @@ import { existsSync, readFileSync } from 'fs';
 import { CONFIG_PACK, CONFIG_SINGLE, PROJECT_NAME } from '../const';
 import { ProjectConfig } from '../cache';
 import { join } from 'path';
+import En from '../../package.nls.json';
+import Zh from '../../package.nls.zh-cn.json';
 
 // 读取json文件
 export function readJSON(path: string) {
@@ -109,9 +111,18 @@ export function computedVal<T>(val: T, defaultVal: NonNullable<T>): NonNullable<
   return val as NonNullable<T>;
 }
 
-
+// 合并指令
 export function getInstructs(config: ProjectConfig) {
 
   return [...config.script, ...INSTRUCTS];
 
+}
+
+
+// 国际化
+export function localize(key: string) {
+ if(vscode.env.language.startsWith('zh')) {
+    return (Zh as {[key:string]: string})[key] || '';
+  } 
+  return (En as {[key:string]: string})[key] || '';
 }
