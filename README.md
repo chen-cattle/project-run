@@ -1,5 +1,11 @@
 # Project Run
 
+![Downloads](https://img.shields.io/visual-studio-marketplace/d/chen-cattle.project-run)  ![Rating](https://img.shields.io/visual-studio-marketplace/r/chen-cattle.project-run) 
+
+
+[English](https://github.com/chen-cattle/project-run/blob/dev/README.md) | [中文](https://github.com/chen-cattle/project-run/blob/dev/docs/README_CN.md)
+
+
 Simplify the process of starting a javascript project in vscode and quickly start a javascript project
 
 ## Feature

@@ -1,5 +1,14 @@
 # Project Run
 
+
+![Downloads](https://img.shields.io/visual-studio-marketplace/d/chen-cattle.project-run)  ![Rating](https://img.shields.io/visual-studio-marketplace/r/chen-cattle.project-run) 
+
+
+
+[English](https://github.com/chen-cattle/project-run/blob/dev/README.md) | [中文](https://github.com/chen-cattle/project-run/blob/dev/docs/README_CN.md)
+
+
+
 简化 vscode 启动 javascript 项目流程，快速启动 javascript 项目
 
 ## 特性
@@ -7,13 +16,13 @@
 自动扫描工作区中的 package.json 文件，通过按钮或快捷键快速启动各工作区中的的 Javascript 项目
 
 * 快速运行  
-![Run](images/useOneRun.gif)
+![Run](../images/useOneRun.gif)
 
 * 快速停止  
-![Stop](images/useOneStop.gif)
+![Stop](../images/useOneStop.gif)
 
 * 打开指令列表  
-![Menus](images/useOpenMenu.gif)
+![Menus](../images/useOpenMenu.gif)
 
 ## 快捷键
 
