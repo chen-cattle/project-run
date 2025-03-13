@@ -9,6 +9,7 @@ export const PROJECT_NAME = 'project-run';
 export const CONFIG_PACK = 'pack';
 export const CONFIG_SINGLE = 'single';
 export const CONFIG_EXIT = 'exit';
+export const CONFIG_SCRIPT = 'script';
 
 export const PACK_COMMAND = {
   npm: 'npm run',
@@ -20,6 +21,7 @@ export const DEFAULT_OPTION: ProjectConfig = {
   pack: 'npm',
   single: true,
   exit: false,
+  script: []
 };
 
 

@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import Cache, { Project } from '../cache';
-import { INSTRUCTS, PACK_COMMAND } from '../const';
-import { getActiveWorkspaceFolder, getCommand } from '../utils';
+import { getActiveWorkspaceFolder, getCommand, getInstructs } from '../utils';
 
 export function runFunc(memory: Cache) {
 
@@ -21,7 +20,9 @@ export function runFunc(memory: Cache) {
     vscode.window.showErrorMessage('工作区暂无打开的项目');
     return;
   }
-  const cur = INSTRUCTS.findIndex(item => {
+
+  const instructs = getInstructs(curProject.config);
+  const cur = instructs.findIndex(item => {
     return !!curProject.executes.find(exec => exec.key === item);
   });
   
@@ -30,5 +31,5 @@ export function runFunc(memory: Cache) {
     return;
   }
 
-  vscode.commands.executeCommand('project-run.execText', getCommand(curProject.config, INSTRUCTS[cur]), curProject.name);
+  vscode.commands.executeCommand('project-run.execText', getCommand(curProject.config, instructs[cur]), curProject.name);
 }

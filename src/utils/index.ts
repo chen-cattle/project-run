@@ -1,4 +1,4 @@
-import { CONFIG_EXIT, DEFAULT_OPTION, INSTRUCTS, PACK_COMMAND, ProjectJSONName } from './../const/index';
+import { CONFIG_EXIT, CONFIG_SCRIPT, DEFAULT_OPTION, INSTRUCTS, PACK_COMMAND, ProjectJSONName } from './../const/index';
 import * as vscode from 'vscode';
 import { existsSync, readFileSync } from 'fs';
 import { CONFIG_PACK, CONFIG_SINGLE, PROJECT_NAME } from '../const';
@@ -39,10 +39,12 @@ export function stopShell() {
 // 获取配置
 export function getConfig(work: vscode.WorkspaceFolder): ProjectConfig {
     const config = vscode.workspace.getConfiguration(PROJECT_NAME, work);
+
     return {
       pack: computedVal(config.get<ProjectConfig['pack']>(CONFIG_PACK), DEFAULT_OPTION.pack),
       single: computedVal(config.get<boolean>(CONFIG_SINGLE), DEFAULT_OPTION.single),
-      exit: computedVal(config.get<boolean>(CONFIG_EXIT), DEFAULT_OPTION.exit)
+      exit: computedVal(config.get<boolean>(CONFIG_EXIT), DEFAULT_OPTION.exit),
+      script: computedVal(config.get<string[]>(CONFIG_SCRIPT), DEFAULT_OPTION.script),
     };
 }
 
@@ -77,7 +79,7 @@ export function getProject(workspace: vscode.WorkspaceFolder) {
     if(existsSync(packagePath)) {
       const config = getConfig(workspace);
       const scriptList = Object.entries(readJSON(packagePath).scripts || {});
-      const curDev = INSTRUCTS.find(item => {
+      const curDev = getInstructs(config).find(item => {
         return !!scriptList.find(script => script[0] === item);
       }) || 'dev';
       return {
@@ -97,10 +99,19 @@ export function getProject(workspace: vscode.WorkspaceFolder) {
     }
 }
 
+
+// 值为空时返回默认值
 export function computedVal<T>(val: T, defaultVal: NonNullable<T>): NonNullable<T>{
   if(typeof val === undefined || val === null) {
     return defaultVal;
   }
 
   return val as NonNullable<T>;
+}
+
+
+export function getInstructs(config: ProjectConfig) {
+
+  return [...config.script, ...INSTRUCTS];
+
 }

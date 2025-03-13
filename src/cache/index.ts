@@ -6,6 +6,7 @@ export type ProjectConfig = {
   pack: keyof typeof PACK_COMMAND;
   single: boolean;
   exit: boolean;
+  script: string[];
 }
 
 export type Project = {
