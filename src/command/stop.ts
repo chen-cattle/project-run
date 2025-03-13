@@ -24,7 +24,11 @@ export function stop(memory: Cache) {
     console.log('stop terminal', terminal);
     memory.setStatus(false);
     terminal?.sendText(stopShell());
-    terminal?.show();
+    if(curProject.config.exit) {
+      terminal?.dispose();
+    } else {
+      terminal?.show();
+    }
 
   }
   // memory.terminalList[0].sendText(stopShell());
